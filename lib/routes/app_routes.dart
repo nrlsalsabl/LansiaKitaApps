@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:health_monitor/screens/auth/login_page.dart';
+import 'package:health_monitor/screens/main/main_page.dart';
 
 import '../screens/home/homepage.dart';
 import '../screens/history/history_page.dart';
@@ -13,27 +15,18 @@ final GoRouter appRouter = GoRouter(
 
     GoRoute(
       path: "/",
-      builder: (context, state) => const SplashPage(),
+      builder: (_, __) => const SplashPage(),
     ),
 
     GoRoute(
-      path: "/home",
-      builder: (context, state) => const HomePage(),
+      path: "/login",
+      builder: (_, __) => const LoginPage(),
     ),
 
     GoRoute(
-      path: "/history",
-      builder: (context, state) => const HistoryPage(),
+      path: "/main",
+      builder: (_, __) => const MainPage(),
     ),
 
-    GoRoute(
-      path: "/profile",
-      builder: (context, state) => const ProfilePage(),
-    ),
-
-    GoRoute(
-      path: "/settings",
-      builder: (context, state) => const SettingsPage(),
-    ),
   ],
 );

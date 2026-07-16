@@ -1,10 +1,6 @@
 import '../models/health_status.dart';
 
-enum HealthCondition {
-  green,
-  yellow,
-  red,
-}
+enum HealthCondition { green, yellow, red }
 
 class HealthAnalyzer {
   static HealthStatus analyze({
@@ -76,13 +72,13 @@ class HealthAnalyzer {
     int syncInterval;
 
     if (score >= 80) {
-      status = "Normal";
+      status = "SEHAT";
       syncInterval = 300;
     } else if (score >= 50) {
-      status = "Warning";
+      status = "PERLU_PANTAU";
       syncInterval = 60;
     } else {
-      status = "Danger";
+      status = "DARURAT";
       syncInterval = 30;
     }
 

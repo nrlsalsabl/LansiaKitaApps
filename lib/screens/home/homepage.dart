@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
       final provider = context.read<HealthProvider>();
 
       await provider.loadAll();
+
       provider.startAdaptiveSync();
     });
   }
@@ -181,7 +182,24 @@ class _HomePageState extends State<HomePage> {
                         await provider.loadAll();
                       },
                       icon: const Icon(Icons.refresh),
-                      label: const Text("Sync Heart Rate"),
+                      label: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () async {
+                            await provider.syncHealth();
+
+                            if (!context.mounted) return;
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Data berhasil dikirim"),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.cloud_upload),
+                          label: const Text("Sync ke Server"),
+                        ),
+                      ),
                     ),
                   ),
 

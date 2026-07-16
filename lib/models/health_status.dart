@@ -50,6 +50,7 @@ class HealthStatus {
       reasons: reasons ?? this.reasons,
       syncInterval: syncInterval ?? this.syncInterval,
       lastSync: lastSync ?? this.lastSync,
+      
     );
   }
 }

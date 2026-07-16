@@ -1,7 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:health/health.dart';
+import '../models/health_result.dart';
+import 'api_service.dart';
+import '../constants/api.dart';
+import '../models/telemetry.dart';
 
 class HealthService {
   final Health health = Health();
+  final ApiService _api = ApiService();
 
   Future<void> init() async {
     await health.configure();
@@ -110,5 +116,30 @@ class HealthService {
     }
 
     return totalHours;
+  }
+
+  Future<Response> syncHealth(HealthResult result) async {
+    return await _api.dio.post(Api.syncHealth, data: result.toJson());
+  }
+
+  Future<List<Telemetry>> getHistory({
+    String? deviceId,
+    String? lansiaId,
+    int limit = 50,
+  }) async {
+    final response = await _api.dio.get(
+      Api.history,
+      queryParameters: {
+        if (deviceId != null) "deviceId": deviceId,
+
+        if (lansiaId != null) "lansiaId": lansiaId,
+
+        "limit": limit,
+      },
+    );
+
+    final List list = response.data["data"];
+
+    return list.map((e) => Telemetry.fromJson(e)).toList();
   }
 }
